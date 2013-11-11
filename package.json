@@ -10,7 +10,8 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "grunt": "~0.4.1",
-    "express": "~3.4.4"
+    "express": "~3.4.4",
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3"
