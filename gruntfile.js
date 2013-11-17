@@ -4,6 +4,15 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
+		jshint: {
+			files: [
+			'js/**/*.js',
+             'app.js'
+            ]
+      		/*options: {
+      			reporter: 'reporter.js'
+      		}*/
+    	},
 		watch: {
 			files: ['**/*'],
 			options: {
@@ -14,6 +23,7 @@ module.exports = function(grunt) {
 
 	// Load the plugins
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// Default task(s).
 	grunt.registerTask('default', ['watch']);
