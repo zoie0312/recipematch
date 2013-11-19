@@ -1,6 +1,7 @@
 var express = require("express");
 var path = require("path");
 var _ = require("underscore");
+var fs = require('fs');
 
 var app = express()
 			.use(express.static(__dirname,
@@ -33,6 +34,35 @@ var recipes = [
 	}
 ];
 
+var ingredients = [
+	{
+		id: 1,
+		name: "tomato",
+		used_in: [2, 44, 5]
+	},
+	{
+		id: 2,
+		name: "onion",
+		used_in: [12, 4, 5]
+	}
+];
+
+
+var DB_Ingredients = [];
+
+fs.readFile('db/db_ingredients_json.json', function(err, data){
+	if (err){
+		return console.log(err);
+	}
+
+	DB_Ingredients = JSON.parse(data);
+
+	db_ingredients_ready = true;
+	console.log(DB_Ingredients[23]["id"]);
+	console.log(DB_Ingredients[23]["name"]);
+});
+
+
 app.get("/hello", function(req, res){
 	res.send("Hello, World");
 });
@@ -55,6 +85,11 @@ app.post("/users", function(req, res){
 	db.push(req.body);
 	res.end();
 	//res.re
+});
+
+app.get("/ingredients", function(req, res){
+	res.json(DB_Ingredients);
+
 });
 
 var port = process.env.PORT || 8000;
