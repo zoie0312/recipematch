@@ -35,6 +35,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-bower-install-task');
 
 	// Default task(s).
-	grunt.registerTask('default', ['watch']);
+	grunt.registerTask('default', ['bower_install', 'copy']);
 
 };
