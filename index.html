@@ -3,16 +3,17 @@
   <head>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/bower_components/jquery-ui-1.10.3/themes/base/jquery-ui.css">
   	<script src="/bower_components/jquery/jquery.js"></script>
+    <script src="/bower_components/jquery-ui-1.10.3/ui/jquery-ui.js"></script>
   	<script src="/bower_components/underscore/underscore.js"></script>
   	<script src="/bower_components/backbone/backbone.js"></script>
-
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   </head>
 
   <body>
-    <div class="col-md-2" id="side-bar"><h2>Side Bar</h2></div>
+    <div class="col-md-2" id="side-bar"><h2>SideBar</h2></div>
     <div class="col-md-10" id="mainbody">
       <section id="landing">
         <h1 align="center">Hello!!</h1>
@@ -31,7 +32,9 @@
       <section id="user_input">
         <header id="header">
           <h1>What is in your frige?</h1>
-          <input id="new-ingredient" placeholder="Input ingredients" autofocus>
+          <div class="ui-widget">
+            <input id="new-ingredient" placeholder="Input ingredients" autofocus>
+          </div>
         </header>
         <section id="main">
           <!--<input id="toggle-all" type="checkbox">-->
@@ -39,7 +42,9 @@
           <ul id="ingredient-list"></ul>
         </section>
         <footer id="footer">
+
           <a href="/#match_result" class="btn btn-primary btn-lg active" role="button" id="match-button">Match</a>
+
           <!--<button type="button" class="btn btn-primary" id="match-button">Match</button>-->
         </footer>
       </section>
@@ -85,6 +90,147 @@
     <script src="/js/views/ingredient_view.js"></script>
     <script src="/js/views/userinput_view.js"></script>
     <script src="/js/routers/router.js"></script>
+    <script>
+      $(function(){
+        var availableTags = [
+          "tomato",
+          "onion",
+          "chicken breast",
+          "chicken wing",
+          "chicken leg",
+          "chicken thigh",
+          "garlic",
+          "milk",
+          "cheese",
+          "olive oil",
+          "butter",
+          "egg",
+          "shallot",
+          "chile",
+          "wheat flour",
+          "pork",
+          "wine vinegar",
+          "balsamic vinegar",
+          "white vinegar",
+          "red wine vinegar",
+          "beef",
+          "sweet pepper",
+          "chicken stock",
+          "herbs",
+          "stalk vegetable",
+          "bell pepper",
+          "seafood",
+          "parsley",
+          "vegetable oil",
+          "lemon",
+          "potato",
+          "carrot",
+          "nut",
+          "celery",
+          "mushroom",
+          "all purpose flour",
+          "cayenne pepper",
+          "basil",
+          "thyme",
+          "bread",
+          "cilantro",
+          "chicken broth",
+          "cheddar",
+          "soy sauce",
+          "white wine",
+          "parmesan cheese",
+          "oregano",
+          "cured pork",
+          "pasta",
+          "beetroot",
+          "brown rice",
+          "white rice",
+          "lettuce",
+          "cucumber",
+          "zucchini",
+          "chili",
+          "bacon",
+          "mayonnaise",
+          "cumin",
+          "sour cream",
+          "cinnamon",
+          "mustard",
+          "ginger",
+          "fish",
+          "shrimp",
+          "wine vinegar",
+          "vegetable stock",
+          "bay leaf",
+          "spinach",
+          "sausage",
+          "shellfish",
+          "oyster",
+          "mussel",
+          "clam",
+          "lobster",
+          "crab",
+          "prawn",
+          "breadcrumb",
+          "corn",
+          "lime",
+          "jalapeno",
+          "rosemary",
+          "cabbage",
+          "beef stock",
+          "beef broth",
+          "pork stock",
+          "pork broth",
+          "vegetable broth",
+          "coriander",
+          "balsamic vinegar",
+          "tomato paste",
+          "pickle",
+          "ketchup",
+          "avocado",
+          "yogurt",
+          "chocolate",
+          "broccoli",
+          "cauliflower",
+          "sweet potato",
+          "apple",
+          "pork tenderloins",
+          "orange",
+          "vanilla bean",
+          "curry powder",
+          "black bean",
+          "tortilla",
+          "fennel",
+          "leek",
+          "eggplant",
+          "cayenne",
+          "turkey",
+          "salmon",
+          "lamb",
+          "artichoke",
+          "syrup",
+          "mozzarella cheese",
+          "mint",
+          "beer",
+          "squid",
+          "frozen pea",
+          "chili sauce",
+          "oyster sauce",
+          "fish fillet",
+          "pineapple",
+          "bok choi",
+          "spaghetti",
+          "asparagus",
+          "scallop",
+          "bean sprout",
+          "linguini",
+          "salami"
+        ];
+        $('#new-ingredient').autocomplete({
+          source: availableTags
+        });
+      });
+    </script>
+
   </body>
 
 </html>
