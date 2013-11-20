@@ -3,7 +3,7 @@ APP.Router = Backbone.Router.extend({
 		"first": "firstRoute",
 		"second": "secondRoute",
 		"users": "fetchallusers",
-		"recipe": "recipe",
+		"recipes/:id": "recipe",
 		"all_recipes": "all_recipes",
 		"ingredients/:id": "ingredient",
 		"user_input": "user_input",
@@ -40,9 +40,17 @@ APP.Router = Backbone.Router.extend({
 		console.log("fetch all users");
 	},
 	recipe: function(id){
-		console.log("recipes() was hit");
-		APP.recipes = new APP.Recipes();
-		APP.recipes.fetch({
+		console.log("recipe() was hit");
+		console.log(APP.DBRecipes.models.length);
+		$('body #mainbody').empty();
+		APP.recipe0 = new APP.Recipe();
+		APP.recipe0 = APP.DBRecipes.models[id];
+		APP.recipeView1 = new APP.RecipeView({
+			model: APP.recipe0
+		});
+		APP.recipeView1.render();
+		$('body #mainbody').append(APP.recipeView1.$el);
+		/*APP.recipes.fetch({
 			success: function(){
 				console.log('fetch recipes successfully');
 				APP.recipe0 = APP.recipes.get(1);
@@ -56,7 +64,7 @@ APP.Router = Backbone.Router.extend({
 				console.log("ttt");
 				console.log(arguments);
 			}
-		});
+		});*/
 		//console.log(APP.recipes.get(2));
 	},
 	all_recipes: function(){
