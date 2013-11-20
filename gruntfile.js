@@ -13,6 +13,13 @@ module.exports = function(grunt) {
       			reporter: 'reporter.js'
       		}*/
     	},
+    	copy: {
+    		main: {
+    			files: [
+    			{src: ['bower_components/**/*'], dest: 'public/'}
+    			]
+    		},
+    	},
 		watch: {
 			files: ['**/*'],
 			options: {
@@ -24,6 +31,8 @@ module.exports = function(grunt) {
 	// Load the plugins
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-bower-install-task');
 
 	// Default task(s).
 	grunt.registerTask('default', ['watch']);
