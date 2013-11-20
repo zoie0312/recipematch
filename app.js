@@ -50,7 +50,7 @@ var ing_id = _.max(ingredients, function(ingredient) {return ingredient.id;}).id
 
 var DB_Ingredients = [];
 
-fs.readFile('db/db_ingredients_json.json', function(err, data){
+fs.readFile('db/db_ingredients_json1120.json', function(err, data){
 	if (err){
 		return console.log(err);
 	}
@@ -62,7 +62,7 @@ fs.readFile('db/db_ingredients_json.json', function(err, data){
 	console.log(DB_Ingredients[23]["name"]);
 });
 
-fs.readFile('db/db_recipes.json', function(err, data){
+fs.readFile('db/db_recipes1120.json', function(err, data){
 	if (err){
 		return console.log(err);
 	}
