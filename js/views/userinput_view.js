@@ -3,23 +3,9 @@ APP.User_InputView = Backbone.View.extend({
 	el: "#mainbody",
 //	section: "#landing",
 
-	template: _.template('<div class="modal fade" id="addIngredient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">' +
-							'<div class="modal-dialog">' +
-								'<div class="modal-content">' +
-									'<div class="modal-header">' +
-										'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
-										'<h4 class="modal-title" id="myModalLabel">What do you have in your frige?</h4>' +
-									'</div>' +
-									'<div class="modal-body">' +
-									'......' +
-									'</div>' +
-									'<div class="modal-footer">' +
-										'<button type="button" class="btn btn-primary" data-dismiss="modal">Match</button>' +
-									'</div>' +
-								'</div><!-- /.modal-content -->' +
-							'</div><!-- /.modal-dialog -->' +
-						'</div><!-- /.modal -->'),
-	userinputTemplate: _.template($('#stats-template').html()),
+
+	//userinputTemplate: _.template($('#stats-template').html()),
+	//userinputtemplate: _.template($('#userinput-template').html()),
 
 	events: {
 		"keypress #new-ingredient": 'createOnEnter',
@@ -37,6 +23,7 @@ APP.User_InputView = Backbone.View.extend({
 		this.listenTo(APP.userIngredients, 'reset', this.addAll);
 		this.listenTo(APP.userIngredients, 'all', this.render);
 
+		//this.$el.html(this.userinputtemplate);
 		//APP.userIngredients.fetch({reset: true});
 	},
 
@@ -59,7 +46,7 @@ APP.User_InputView = Backbone.View.extend({
     },
 
     createOnEnter: function (e) {
-    	console.log("createOnEnter hit");
+    	//console.log("createOnEnter hit");
     	if (e.which !== ENTER_KEY || !this.$input.val().trim()) {
     		return;
     	}
@@ -71,13 +58,155 @@ APP.User_InputView = Backbone.View.extend({
 	render: function(){
 		//this.$el.html('<h3>' + this.model.get('name') + '</h3>');
 		//var attributes = this.model.toJSON();
-		console.log("render user_input");
+		//console.log("render user_input");
 		//console.log(this.$('#landing'));
 		this.$landing_page.hide();
 		this.$main.show();
 		this.$footer.show();
+		//var attributes = this.model.toJSON();
+		//this.$el.html(this.userinputtemplate);
+		this.addAutoComplete();
 		//this.$el.html(this.template());
 		return this;
-	}
+	},
+
+	addAutoComplete: function(){
+    	var availableTags = [
+          "tomato",
+          "onion",
+          "chicken breast",
+          "chicken wing",
+          "chicken leg",
+          "chicken thigh",
+          "garlic",
+          "milk",
+          "cheese",
+          "olive oil",
+          "butter",
+          "egg",
+          "shallot",
+          "chile",
+          "wheat flour",
+          "pork",
+          "wine vinegar",
+          "balsamic vinegar",
+          "white vinegar",
+          "red wine vinegar",
+          "beef",
+          "sweet pepper",
+          "chicken stock",
+          "herbs",
+          "stalk vegetable",
+          "bell pepper",
+          "seafood",
+          "parsley",
+          "vegetable oil",
+          "lemon",
+          "potato",
+          "carrot",
+          "nut",
+          "celery",
+          "mushroom",
+          "all purpose flour",
+          "cayenne pepper",
+          "basil",
+          "thyme",
+          "bread",
+          "cilantro",
+          "chicken broth",
+          "cheddar",
+          "soy sauce",
+          "white wine",
+          "parmesan cheese",
+          "oregano",
+          "cured pork",
+          "pasta",
+          "beetroot",
+          "brown rice",
+          "white rice",
+          "lettuce",
+          "cucumber",
+          "zucchini",
+          "chili",
+          "bacon",
+          "mayonnaise",
+          "cumin",
+          "sour cream",
+          "cinnamon",
+          "mustard",
+          "ginger",
+          "fish",
+          "shrimp",
+          "wine vinegar",
+          "vegetable stock",
+          "bay leaf",
+          "spinach",
+          "sausage",
+          "shellfish",
+          "oyster",
+          "mussel",
+          "clam",
+          "lobster",
+          "crab",
+          "prawn",
+          "breadcrumb",
+          "corn",
+          "lime",
+          "jalapeno",
+          "rosemary",
+          "cabbage",
+          "beef stock",
+          "beef broth",
+          "pork stock",
+          "pork broth",
+          "vegetable broth",
+          "coriander",
+          "balsamic vinegar",
+          "tomato paste",
+          "pickle",
+          "ketchup",
+          "avocado",
+          "yogurt",
+          "chocolate",
+          "broccoli",
+          "cauliflower",
+          "sweet potato",
+          "apple",
+          "pork tenderloins",
+          "orange",
+          "vanilla bean",
+          "curry powder",
+          "black bean",
+          "tortilla",
+          "fennel",
+          "leek",
+          "eggplant",
+          "cayenne",
+          "turkey",
+          "salmon",
+          "lamb",
+          "artichoke",
+          "syrup",
+          "mozzarella cheese",
+          "mint",
+          "beer",
+          "squid",
+          "frozen pea",
+          "chili sauce",
+          "oyster sauce",
+          "fish fillet",
+          "pineapple",
+          "bok choi",
+          "spaghetti",
+          "asparagus",
+          "scallop",
+          "bean sprout",
+          "linguini",
+          "salami"
+        ];
+        $('#new-ingredient').autocomplete({
+          source: availableTags
+        });
+    }
 
 });
