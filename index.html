@@ -13,7 +13,16 @@
   </head>
 
   <body>
-    <div class="col-md-2" id="side-bar"><h2>SideBar</h2></div>
+    <style type="text/css">
+      #recipe-image img{
+
+        margin-top: 40px;
+      }
+    </style>
+
+    <div class="col-md-2" id="side-bar">
+      <h3>RecipeMatch is your best friend to help you come with good meals without going out for shopping!</h3>
+    </div>
     <div class="col-md-10" id="mainbody">
       <section id="landing">
         <h1 align="center">Hello!!</h1>
@@ -26,12 +35,12 @@
         <h2>If this is your problem, then we might be able to help.</h2>
         <h2>Let's find out how we can help to turn your spare materials into gorgeous meals</h2>
         <!--<h2><a href="/#user_input" data-toggle="modal" data-target="#addIngredient">Go!</a></h2>-->
-        <h2><a href="/#user_input" >Go!</a></h2>
+        <h2><a href="/#user_input" ><i>Go!</i></a></h2>
       </section>
 
       <section id="user_input">
         <header id="header">
-          <h1>What is in your frige?</h1>
+          <h1>What do you have in your frige?</h1>
           <div class="ui-widget">
             <input id="new-ingredient" placeholder="Input ingredients" autofocus>
           </div>
@@ -77,6 +86,34 @@
       <% if (completed) { %>
       <button id="clear-completed">Clear completed (<%= completed %>)</button>
       <% } %>
+    </script>
+
+    <script type="text/template" id="recipe-template">
+      <div class="container" id="recipes-container">
+        <div class="row">
+          <div class="col-md-9" id="recipe-container">
+            <div class="col-md-2" id="recipe-image">
+              <img src="<%= smallImageUrls[0] %>" class="img-thumbnail">
+            </div>
+            <div class="col-md-9">
+              <h3 id="recipe-title">
+                <%- recipeName %>
+              </h3>
+              <ul id="recipe-ingredient">
+                <label>Requires: </label>
+                <% for (var i=0; i<ingredients.length; i++){ %>
+                  <li id="recipe-ingredient"> <%= ingredients[i] %> </li>
+                <% } %>
+              </ul>
+              <h4 id="recipe-source">
+                <a href="http://www.yummly.com/recipe/<%= yum_id %>"><i>more..</i></a>
+              </h4>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
     </script>
 
 
