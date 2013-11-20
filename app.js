@@ -46,7 +46,7 @@ var ingredients = [
 		used_in: [12, 4, 5]
 	}
 ];
-
+var ing_id = _.max(ingredients, function(ingredient) {return ingredient.id;}).id;
 
 var DB_Ingredients = [];
 
@@ -58,8 +58,20 @@ fs.readFile('db/db_ingredients_json.json', function(err, data){
 	DB_Ingredients = JSON.parse(data);
 
 	db_ingredients_ready = true;
-	console.log(DB_Ingredients[23]["id"]);
+	//console.log(DB_Ingredients["garlic"]["id"]);
 	console.log(DB_Ingredients[23]["name"]);
+});
+
+fs.readFile('db/db_recipes.json', function(err, data){
+	if (err){
+		return console.log(err);
+	}
+		//console.log(data.length);
+	DB_Recipes = JSON.parse(data);
+
+	db_recipes_ready = true;
+	console.log(DB_Recipes.length);
+	console.log(DB_Recipes[0]);
 });
 
 
@@ -73,8 +85,8 @@ app.get("/users", function(req, res){
 });
 
 app.get("/recipes", function(req, res){
-	res.json(recipes);
-	console.log(recipes);
+	res.json(DB_Recipes);
+	//console.log(recipes);
 });
 
 app.post("/users", function(req, res){
@@ -90,6 +102,16 @@ app.post("/users", function(req, res){
 app.get("/ingredients", function(req, res){
 	res.json(DB_Ingredients);
 
+});
+
+app.post("/ingredients", function(req, res){
+	ing_id += 1;
+	req.body.id = ing_id;
+	console.log(req.body);
+
+	ingredients.push(req.body);
+	res.end();
+	//res.re
 });
 
 var port = process.env.PORT || 8000;
