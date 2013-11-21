@@ -79,10 +79,16 @@
 
     <script type="text/template" id="ingredient-template">
       <div class="view">
-        <label><%- name %></label>
-        <button class="destroy">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
+        <div class="row">
+          <div class="col-md-2">
+            <label><%- name %></label>
+            </div>
+            <div class="col-md-1">
+            <button class="destroy">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+        </div>
       </div>
 
     </script>
