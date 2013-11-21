@@ -18,12 +18,21 @@
 
         margin-top: 40px;
       }
+      #mmainbody #landing {
+        display: none;
+      }
+      #mainbody #user_input {
+        display: none;
+      }
+      #mainbody #match_result {
+        display: none;
+      }
     </style>
 
     <div class="col-md-2" id="side-bar">
       <h3>RecipeMatch is your best friend to help you turn spare materials into gorgeous meals!</h3>
     </div>
-    <div class="col-md-10" id="mainbody">
+    <div class="col-md-10" id="mainbody" >
       <section id="landing">
         <h1 align="center">Hello!!</h1>
         <h2>We know you love food;
@@ -56,6 +65,13 @@
 
           <!--<button type="button" class="btn btn-primary" id="match-button">Match</button>-->
         </footer>
+      </section>
+
+      <section id="match_result">
+        <header id="header">
+          <h1>With those materials, you should be able to make:</h1>
+        </header>
+        <div id="user_recipes"></div>
       </section>
 
     </div>

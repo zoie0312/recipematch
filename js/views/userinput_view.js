@@ -19,7 +19,7 @@ APP.User_InputView = Backbone.View.extend({
 		this.$footer = this.$('#footer');
 		this.$landing_page = this.$('#landing');
 
-		this.listenTo(APP.userIngredients, 'add', this.addOne);
+		this.listenTo(APP.userIngredients, 'add', this.addOneIngredient);
 		this.listenTo(APP.userIngredients, 'reset', this.addAll);
 		this.listenTo(APP.userIngredients, 'all', this.render);
 
@@ -32,28 +32,28 @@ APP.User_InputView = Backbone.View.extend({
 
 	},
 
-	addOne: function (ingredient) {
+	addOneIngredient: function (ingredient) {
         var view = new APP.IngredientView({ model: ingredient });
         $('#ingredient-list').append(view.render().el);
     },
 
-    newAttributes: function () {
-    	return {
-    		name: this.$input.val().trim(),
+  newAttributes: function () {
+    return {
+    	name: this.$input.val().trim(),
     		//order: app.todos.nextOrder(),
     		//completed: false
-    	};
-    },
+    };
+  },
 
-    createOnEnter: function (e) {
+  createOnEnter: function (e) {
     	//console.log("createOnEnter hit");
-    	if (e.which !== ENTER_KEY || !this.$input.val().trim()) {
-    		return;
-    	}
+    if (e.which !== ENTER_KEY || !this.$input.val().trim()) {
+    	return;
+    }
 
-        APP.userIngredients.create(this.newAttributes());
-        this.$input.val('');
-    },
+    APP.userIngredients.create(this.newAttributes());
+    this.$input.val('');
+  },
 
 	render: function(){
 		//this.$el.html('<h3>' + this.model.get('name') + '</h3>');

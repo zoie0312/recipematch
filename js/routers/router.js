@@ -1,39 +1,22 @@
 APP.Router = Backbone.Router.extend({
 	routes: {
-		"first": "firstRoute",
-		"second": "secondRoute",
-		"users": "fetchallusers",
-		"recipes/:id": "recipe",
-		"all_recipes": "all_recipes",
-		"ingredients/:id": "ingredient",
-		"user_input": "user_input",
-		"match_result": "user_recipes",
-		"": "home"
+		""					: "home",
+		"users"				: "fetchallusers",
+		"recipes/:id"		: "recipe",
+		"all_recipes"		: "all_recipes",
+		"ingredients/:id"	: "ingredient",
+		"user_input"		: "user_input",
+		"match_result"		: "user_recipes"
 	},
 
 	/*initialize: function() {
 		Backbone.history.start({pushState: true});
 	},*/
 
-	firstRoute: function(){
-		console.log("firstRoute() loaded");
-		//APP.user1 = new APP.User();
-		//APP.user2 = new APP.User();
-		//APP.user1.set({name:"Collin", phone:"40638888" });
-		//APP.user2.set({name: "Dan", address:"somewhere in the planet"});
-
-		APP.userCollection = new APP.Users();
-		//APP.usersView = new APP.UsersView({collection: APP.userCollection});
-		APP.userCollection.create({name:"Collin", phone:"40638888" });
-		APP.userCollection.create({name:"Dan", phone:"somewhere in the planet" });
-		//APP.userCollection.fetch();
-	},
-
-	secondRoute: function(){
-		console.log("secondRoute() loaded");
-		APP.usersCollection = new APP.Users();
-		APP.usersCollection.fetch();
-		console.log(APP.usersCollection);
+	home: function(){
+		$("#mainbody #user_input").hide();
+		$("#mainbody #match_result").hide();
+		$("body #mainbody #landing").show();
 
 	},
 	fetchallusers: function(){
@@ -111,6 +94,7 @@ APP.Router = Backbone.Router.extend({
 	user_input: function(){
 		console.log("user_input() hitted");
 		$("body #mainbody #landing").hide();
+		$("#mainbody #match_result").hide();
 		$("body #mainbody #user_input").show();
 		//$('#landing').hide();
 		APP.userIngredients = new APP.Ingredients();
@@ -123,7 +107,9 @@ APP.Router = Backbone.Router.extend({
 	},
 	user_recipes: function(){
 		//console.log("user_recipes hit");
-		$("body #mainbody").empty();
+		$("body #mainbody #landing").hide();
+		$("body #mainbody #user_input").hide();
+		$("#mainbody #match_result").show();
 		//console.log(APP.userIngredients);
 		var user_input = [];
 		var user_ingredients = [];
@@ -169,13 +155,10 @@ APP.Router = Backbone.Router.extend({
 			collection: APP.userRecipes
 		});
 		APP.userRecipesView.render();
-		$('body #mainbody').append(APP.userRecipesView.$el);
-
-	},
-	home: function(){
-		$("body #mainbody #user_input").hide();
+		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
 
 	}
+
 });
 
 APP.router = new APP.Router();
