@@ -6,6 +6,7 @@ var fs = require('fs');
 var app = express()
 			.use(express.static(__dirname,
 								path.join(__dirname, "bower_components"),
+								path.join(__dirname, "public"),
 								path.join(__dirname, "js")))
 			.use(express.bodyParser())
 			.use(express.logger('dev'));
