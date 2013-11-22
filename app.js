@@ -67,7 +67,7 @@ fs.readFile('db/db_recipes1120.json', function(err, data){
 	if (err){
 		return console.log(err);
 	}
-		//console.log(data.length);
+
 	DB_Recipes = JSON.parse(data);
 
 	db_recipes_ready = true;

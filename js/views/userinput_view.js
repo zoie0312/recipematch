@@ -3,10 +3,6 @@ APP.User_InputView = Backbone.View.extend({
 	el: "#mainbody",
 //	section: "#landing",
 
-
-	//userinputTemplate: _.template($('#stats-template').html()),
-	//userinputtemplate: _.template($('#userinput-template').html()),
-
 	events: {
 		"keypress #new-ingredient": 'createOnEnter',
 		"click #match-button": "match"
@@ -23,8 +19,6 @@ APP.User_InputView = Backbone.View.extend({
 		this.listenTo(APP.userIngredients, 'reset', this.addAll);
 		this.listenTo(APP.userIngredients, 'all', this.render);
 
-		//this.$el.html(this.userinputtemplate);
-		//APP.userIngredients.fetch({reset: true});
 	},
 
 	match: function(){
@@ -56,15 +50,9 @@ APP.User_InputView = Backbone.View.extend({
   },
 
 	render: function(){
-		//this.$el.html('<h3>' + this.model.get('name') + '</h3>');
-		//var attributes = this.model.toJSON();
-		//console.log("render user_input");
-		//console.log(this.$('#landing'));
 		this.$landing_page.hide();
 		this.$main.show();
 		this.$footer.show();
-		//var attributes = this.model.toJSON();
-		//this.$el.html(this.userinputtemplate);
 		this.addAutoComplete();
 		//this.$el.html(this.template());
 		return this;

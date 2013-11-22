@@ -10,8 +10,6 @@ APP.RecipesView = Backbone.View.extend({
 			this.$el.append(APP.recipeView.render().el);
 
 		}, this);
-		//var attributes = this.model.toJSON();
-		//this.$el.html(this.template(attributes));
 
 	}
 });

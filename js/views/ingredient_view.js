@@ -25,9 +25,6 @@ APP.IngredientView = Backbone.View.extend({
 	},
 
 	clear: function(){
-		//console.log("IngredientView: remove() called");
-		//console.log("ingredient name= " + this.model.get('name'));
-		//this.$el.remove();
 		this.model.destroy();
 
 	}
