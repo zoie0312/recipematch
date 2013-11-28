@@ -12,7 +12,7 @@ APP.User_InputView = Backbone.View.extend({
 	initialize: function(){
 		this.$input = this.$('#new-ingredient');
 		this.$main = this.$('#main');
-		this.$footer = this.$('#footer');
+		//this.$footer = this.$('#footer');
 		this.$landing_page = this.$('#landing');
 
 		this.listenTo(APP.userIngredients, 'add', this.addOneIngredient);
@@ -50,9 +50,9 @@ APP.User_InputView = Backbone.View.extend({
   },
 
 	render: function(){
-		this.$landing_page.hide();
+		//this.$landing_page.hide();
 		this.$main.show();
-		this.$footer.show();
+		//this.$footer.show();
 		this.addAutoComplete();
 		//this.$el.html(this.template());
 		return this;

@@ -21,55 +21,53 @@
       #mmainbody #landing {
         display: none;
       }
-      #mainbody #user_input {
-        display: none;
-      }
       #mainbody #match_result {
         display: none;
       }
+      #mainbody #home-title {
+        margin-top: 40px;
+        margin-bottom: 130px;
+      }
+      #mainbody .ui-widget{
+        padding-left: 0px;
+
+      }
+      #mainbody .ingredient{
+        margin-top: 7px;
+      }
+      #mainbody .ingredient-view{
+        padding-left: 90px;
+      }
     </style>
 
-    <div class="col-md-2" id="side-bar">
-      <h3>RecipeMatch is your best friend to help you turn spare materials into gorgeous meals!</h3>
-    </div>
-    <div class="col-md-10" id="mainbody" >
-      <section id="landing">
-        <h1 align="center">Hello!!</h1>
-        <h2>We know you love food;
-          enjoy trying all kinds of food and save them in frige in case someday you will need them.</h2>
-        <h2>However, as time goes by, you find you have a packed frige and you don't know what to do with it.</h2>
-        <div align="center">
-          <img src="/images/7801.jpg" width="600" height="620">
-        </div>
-        <h2>If this is your problem, then we might be able to help.</h2>
-        <h2>Let's find out how we can help to turn your spare materials into gorgeous meals</h2>
-        <!--<h2><a href="/#user_input" data-toggle="modal" data-target="#addIngredient">Go!</a></h2>-->
-        <h2><a href="/#user_input" ><i>Go!</i></a></h2>
-      </section>
 
-      <section id="user_input">
+    <div class="col-md-12" id="mainbody" >
+
+      <section id="landing">
         <header id="header">
-          <h1>What do you have in your frige?</h1>
-          <div class="ui-widget">
-            <input id="new-ingredient" placeholder="Input ingredients" autofocus>
+          <div id="home-title">
+            <h1 align="center">Dinner, without a trip to grocery store!</h1>
+          </div>
+          <h4 align="center"><i>Input some ingredients, and find out what you can make out of them</i></h4>
+          <div class="row">
+            <div align="center" class="col-md-3 col-md-offset-4 ui-widget">
+              <input id="new-ingredient" class="form-control" placeholder="onion, chicken, whatever you have" autofocus>
+            </div>
+            <div align="left" class="col-md-3 ui-widget">
+              <a href="/#match_result" class="btn btn-default btn-primary" role="button" id="match-button">Match</a>
+            </div>
           </div>
         </header>
         <section id="main">
-          <!--<input id="toggle-all" type="checkbox">-->
-          <!--<label for="toggle-all">Mark all as complete</label>-->
-          <ul id="ingredient-list"></ul>
+          <div align="center">
+            <ul id="ingredient-list"></ul>
+          </div>
         </section>
-        <footer id="footer">
-
-          <a href="/#match_result" class="btn btn-primary btn-lg active" role="button" id="match-button">Match</a>
-
-          <!--<button type="button" class="btn btn-primary" id="match-button">Match</button>-->
-        </footer>
       </section>
 
       <section id="match_result">
         <header id="header">
-          <h1>With those materials, you should be able to make:</h1>
+          <h2 align="center">With those materials, you should be able to make:</h2>
         </header>
         <div id="user_recipes"></div>
       </section>
@@ -78,9 +76,9 @@
 
 
     <script type="text/template" id="ingredient-template">
-      <div class="view">
+      <div class="ingredient-view">
         <div class="row">
-          <div class="col-md-2">
+          <div align="left" class="col-md-offset-3 col-md-3">
             <label><%- name %></label>
             </div>
             <div class="col-md-1">
@@ -90,34 +88,16 @@
           </div>
         </div>
       </div>
-
-    </script>
-    <script type="text/template" id="stats-template">
-      <span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
-      <ul id="filters">
-        <li>
-          <a class="selected" href="#/">All</a>
-        </li>
-        <li>
-          <a href="#/active">Active</a>
-        </li>
-        <li>
-          <a href="#/completed">Completed</a>
-        </li>
-      </ul>
-      <% if (completed) { %>
-      <button id="clear-completed">Clear completed (<%= completed %>)</button>
-      <% } %>
     </script>
 
     <script type="text/template" id="recipe-template">
       <div class="container" id="recipes-container">
         <div class="row">
-          <div class="col-md-9" id="recipe-container">
+          <div class="col-md-offset-2 col-md-10" id="recipe-container">
             <div class="col-md-2" id="recipe-image">
               <img src="<%= smallImageUrls[0] %>" class="img-thumbnail">
             </div>
-            <div class="col-md-9">
+            <div class="col-md-offset-0 col-md-9">
               <h3 id="recipe-title">
                 <%- recipeName %>
               </h3>
@@ -130,10 +110,8 @@
               <h4 id="recipe-source">
                 <a href="http://www.yummly.com/recipe/<%= yum_id %>"><i>more..</i></a>
               </h4>
-
             </div>
           </div>
-
         </div>
       </div>
     </script>

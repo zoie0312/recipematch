@@ -14,9 +14,17 @@ APP.Router = Backbone.Router.extend({
 	},*/
 
 	home: function(){
-		$("#mainbody #user_input").hide();
-		$("#mainbody #match_result").hide();
+		console.log("home() hitted");
 		$("body #mainbody #landing").show();
+
+		$("#mainbody #match_result").hide();
+		//$("body #mainbody #user_input").show();
+		//$('#landing').hide();
+		APP.userIngredients = new APP.Ingredients();
+		APP.user_inputView = new APP.User_InputView();
+		APP.user_inputView.render();
+
+		$('body #mainbody').append(APP.user_inputView.$el);
 
 	},
 	fetchallusers: function(){
