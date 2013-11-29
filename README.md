@@ -1,8 +1,8 @@
 RecipeMatch
 =================================
 
-This project is to build a web service so that user can search for possible
-meals he can make based on those materials he already has.
+This project is to build a web service for users to search for possible
+recipes he can use to cook based on those materials they already have.
 On one hand, we have user's inventory of materials such as tomato and onion;
 on the other, we have thousands of recipes to match with.
 
