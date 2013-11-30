@@ -14,7 +14,6 @@ APP.Router = Backbone.Router.extend({
 	},*/
 
 	home: function(){
-		console.log("home() hitted");
 		$("body #mainbody #landing").show();
 
 		$("#mainbody #match_result").hide();
