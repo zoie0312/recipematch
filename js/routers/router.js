@@ -6,7 +6,8 @@ APP.Router = Backbone.Router.extend({
 		"all_recipes"		: "all_recipes",
 		"ingredients/:id"	: "ingredient",
 		"user_input"		: "user_input",
-		"match_result"		: "user_recipes"
+		"match_result"		: "user_recipes",
+		"show_on_map"		: "result_on_map"
 	},
 
 	/*initialize: function() {
@@ -130,7 +131,22 @@ APP.Router = Backbone.Router.extend({
 			collection: APP.userRecipes
 		});
 		APP.userRecipesView.render();
+
+
 		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+	},
+
+	result_on_map: function(){
+		$("body #mainbody #landing").hide();
+		$("body #mainbody #user_input").hide();
+		$("#mainbody #match_result").show();
+		APP.userCuisinesView = new APP.CuisinesView({
+
+		});
+		APP.userCuisinesView.render();
+
+		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+
 	}
 
 });
