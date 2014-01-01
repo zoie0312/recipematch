@@ -20,11 +20,6 @@ var db = [
 var dbConnectionString = process.env.DATABASE_URL || "/var/run/postgresql recipedb2";
 
 var id = _.max(db, function(user) {return user.id;}).id;
-//id = id + 1;
-/*var getID = function(){
-	id += 1;
-	return id;
-};*/
 
 var recipes = [
 	{
@@ -53,32 +48,25 @@ var ingredients = [
 ];
 var ing_id = _.max(ingredients, function(ingredient) {return ingredient.id;}).id;
 
-var DB_Ingredients = [];
+//var DB_Ingredients = [];
+//var DB_Recipes = [];
 var user_input_ingredients = {};
 
-fs.readFile('db/db_ingredients_json1120.json', function(err, data){
+/*fs.readFile('db/db_ingredients_json1120.json', function(err, data){
 	if (err){
 		return console.log(err);
 	}
 
 	DB_Ingredients = JSON.parse(data);
 
-	db_ingredients_ready = true;
-	//console.log(DB_Ingredients["garlic"]["id"]);
-	//console.log(DB_Ingredients[23]["name"]);
-});
+});*/
 
-fs.readFile('db/db_recipes1120.json', function(err, data){
+/*fs.readFile('db/db_recipes1120.json', function(err, data){
 	if (err){
 		return console.log(err);
 	}
-
 	DB_Recipes = JSON.parse(data);
-
-	db_recipes_ready = true;
-	//console.log(DB_Recipes.length);
-	//console.log(DB_Recipes[0]);
-});
+});*/
 
 app.get("/", function(req, res){
 	console.log("root hit");
@@ -94,8 +82,8 @@ app.get("/users", function(req, res){
 });
 
 app.get("/db_recipes", function(req, res){
-	res.json(DB_Recipes);
-	//console.log(recipes);
+	//res.json(DB_Recipes);
+	res.end("");
 });
 
 app.post("/users", function(req, res){
@@ -109,7 +97,8 @@ app.post("/users", function(req, res){
 });
 
 app.get("/db_ingredients", function(req, res){
-	//res.set('Access-Control-Allow-Origin', "http://localhost:8020");
+
+	// give each new connection an unique id
 	var new_connid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
 		return v.toString(16);
@@ -118,12 +107,11 @@ app.get("/db_ingredients", function(req, res){
 
 	res.cookie('connID', new_connid);
 	ing_id += 1;
-	res.json(DB_Ingredients);
-
+	//res.json(DB_Ingredients);
+	res.json(200, {});
 });
 
 app.post("/ingredients", function(req, res){
-	//ing_id += 1;
 	var conn_id = req.cookies.connID;
 	user_input_ingredients[conn_id].push(req.body.name);
 	req.body.id = ing_id;
@@ -134,7 +122,6 @@ app.post("/ingredients", function(req, res){
 
 	ingredients.push(req.body);
 	res.end();
-	//res.re
 });
 
 app.get("/matching", function(req, res, next){
