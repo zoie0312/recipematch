@@ -7,6 +7,7 @@ APP.Router = Backbone.Router.extend({
 		"ingredients/:id"	: "ingredient",
 		"user_input"		: "user_input",
 		"match_result"		: "user_recipes",
+		"user_recipes"		: "match_recipes",
 		"show_on_map"		: "result_on_map"
 	},
 
@@ -92,7 +93,7 @@ APP.Router = Backbone.Router.extend({
 
 	},
 	user_recipes: function(){
-		//console.log("user_recipes hit");
+		console.log("user_recipes hit");
 		$("body #mainbody #landing").hide();
 		$("body #mainbody #user_input").hide();
 		$("#mainbody #match_result").show();
@@ -122,12 +123,15 @@ APP.Router = Backbone.Router.extend({
 			}
 		});
 		matched_result = _.uniq(matched_result);
+
 		APP.userRecipes = new APP.Recipes();
 		//var userCuisines = {};
 		for (var i=0; i<matched_result.length; i++){
-			APP.userRecipes.add(APP.DBRecipes.models[matched_result[i]]);
+			var aaa = APP.userRecipes.add(APP.DBRecipes.models[matched_result[i]]);
 			//console.log("gggg");
 			console.log(APP.DBRecipes.models[matched_result[i]].get('recipeName'));
+			console.log("test");
+			console.dir(aaa);
 			//console.log(APP.DBRecipes.models[matched_result[i]].get('attributes'));
 			/*if (APP.DBRecipes.models[matched_result[i]].get('attributes') != undefined){
 				var cuisine_name = APP.DBRecipes.models[matched_result[i]].get('attributes')[cuisine][0];
@@ -143,6 +147,20 @@ APP.Router = Backbone.Router.extend({
 
 
 		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+	},
+
+	match_recipes: function(){
+		console.log("match_recipes hit");
+		$("body #mainbody #landing").hide();
+		$("body #mainbody #user_input").hide();
+		$("#mainbody #match_result").show();
+
+		APP.matchRecipes = new APP.Recipes();
+		APP.matchRecipes.url = "/matching";
+		APP.matchRecipes.fetch({
+			success: showMatchResult
+		});
+
 	},
 
 	result_on_map: function(){
@@ -272,6 +290,32 @@ APP.Router = Backbone.Router.extend({
 	}
 
 });
+
+var showMatchResult = function(recipes){
+	console.log("fetching matchRecipes successfully");
+	console.dir(recipes);
+	console.dir(recipes.models);
+	console.dir(recipes.models[0].attributes);
+	console.log(recipes.models[0].attributes.ingredients);
+	//console.log(Array.isArray(recipes.models[0].attributes.ingredients));
+	APP.userRecipes = new APP.Recipes();
+	for (var i=0; i<recipes.models.length; i++){
+		APP.userRecipes.add({
+			id: recipes.models[i].attributes.id,
+			recipeName: recipes.models[i].attributes.recipeName,
+			ingredients: JSON.parse(recipes.models[i].attributes.ingredients),
+			yum_id: recipes.models[i].attributes.yum_id,
+			smallImageUrls: new Array(recipes.models[i].attributes.smallImageUrls)
+
+		});
+	}
+	//APP.userRecipes.add(recipes.models[0]);
+	APP.userRecipesView = new APP.RecipesView({
+		collection: APP.userRecipes
+	});
+	APP.userRecipesView.render();
+	$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+}
 
 APP.router = new APP.Router();
 Backbone.history.start({"root": "/"});

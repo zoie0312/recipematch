@@ -8,5 +8,5 @@ APP.Recipes = Backbone.Collection.extend({
 //var DB_Recipes1 = dbRecipes.dbrecipes;
 
 APP.DBRecipes = new APP.Recipes();
-APP.DBRecipes.url = "/recipes";
+APP.DBRecipes.url = "/db_recipes";
 APP.DBRecipes.fetch();
