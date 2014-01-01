@@ -17,7 +17,7 @@ var db = [
 	{id:1, name: "hohn"}
 ];
 
-var dbConnectionString = "/var/run/postgresql recipedb2";
+var dbConnectionString = process.env.DATABASEURL || "/var/run/postgresql recipedb2";
 
 var id = _.max(db, function(user) {return user.id;}).id;
 //id = id + 1;
