@@ -293,28 +293,31 @@ APP.Router = Backbone.Router.extend({
 
 var showMatchResult = function(recipes){
 	console.log("fetching matchRecipes successfully");
-	console.dir(recipes);
-	console.dir(recipes.models);
-	console.dir(recipes.models[0].attributes);
-	console.log(recipes.models[0].attributes.ingredients);
-	//console.log(Array.isArray(recipes.models[0].attributes.ingredients));
-	APP.userRecipes = new APP.Recipes();
-	for (var i=0; i<recipes.models.length; i++){
-		APP.userRecipes.add({
-			id: recipes.models[i].attributes.id,
-			recipeName: recipes.models[i].attributes.recipeName,
-			ingredients: JSON.parse(recipes.models[i].attributes.ingredients),
-			yum_id: recipes.models[i].attributes.yum_id,
-			smallImageUrls: new Array(recipes.models[i].attributes.smallImageUrls)
+	//console.dir(recipes);
+	//console.dir(recipes.models);
 
+	if (recipes.models[0].attributes.yum_id != undefined){
+		//console.log(recipes.models[0].attributes.ingredients);
+		APP.userRecipes = new APP.Recipes();
+		for (var i=0; i<recipes.models.length; i++){
+			APP.userRecipes.add({
+				id: recipes.models[i].attributes.id,
+				recipeName: recipes.models[i].attributes.recipeName,
+				ingredients: JSON.parse(recipes.models[i].attributes.ingredients),
+				yum_id: recipes.models[i].attributes.yum_id,
+				smallImageUrls: new Array(recipes.models[i].attributes.smallImageUrls)
+
+			});
+		}
+		//APP.userRecipes.add(recipes.models[0]);
+		APP.userRecipesView = new APP.RecipesView({
+			collection: APP.userRecipes
 		});
+		APP.userRecipesView.render();
+		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+	}else{
+		console.log("No matched recipes!!")
 	}
-	//APP.userRecipes.add(recipes.models[0]);
-	APP.userRecipesView = new APP.RecipesView({
-		collection: APP.userRecipes
-	});
-	APP.userRecipesView.render();
-	$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
 }
 
 APP.router = new APP.Router();
