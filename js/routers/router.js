@@ -102,8 +102,8 @@ APP.Router = Backbone.Router.extend({
 		var user_ingredients = [];
 		var user_possible_recipes = [];
 		var matched_result = [];
-		for (var i=0; i<APP.userIngredients.models.length; i++){
-			user_input.push(APP.userIngredients.models[i].get('name'));
+		for (var j=0; j<APP.userIngredients.models.length; j++){
+			user_input.push(APP.userIngredients.models[j].get('name'));
 		}
 		for (var i=0; i < user_input.length; i++){
 			for (var k=0; k<APP.DBIngredients.models.length; k++){
@@ -116,7 +116,7 @@ APP.Router = Backbone.Router.extend({
 		}
 
 		_.forEach(user_possible_recipes, function(r){
-			if ( (_.difference(APP.DBRecipes.models[r-1].get('ingredient_used'), user_ingredients)).length == 0 ){
+			if ( (_.difference(APP.DBRecipes.models[r-1].get('ingredient_used'), user_ingredients)).length === 0 ){
 			//console.log("bingo");
 				matched_result.push(r-1);
 			//console.log(DB_Recipes[r-1]['recipeName']);
@@ -126,10 +126,10 @@ APP.Router = Backbone.Router.extend({
 
 		APP.userRecipes = new APP.Recipes();
 		//var userCuisines = {};
-		for (var i=0; i<matched_result.length; i++){
-			var aaa = APP.userRecipes.add(APP.DBRecipes.models[matched_result[i]]);
+		for (var t=0; t<matched_result.length; t++){
+			var aaa = APP.userRecipes.add(APP.DBRecipes.models[matched_result[t]]);
 			//console.log("gggg");
-			console.log(APP.DBRecipes.models[matched_result[i]].get('recipeName'));
+			console.log(APP.DBRecipes.models[matched_result[t]].get('recipeName'));
 			console.log("test");
 			console.dir(aaa);
 			//console.log(APP.DBRecipes.models[matched_result[i]].get('attributes'));
@@ -164,6 +164,7 @@ APP.Router = Backbone.Router.extend({
 	},
 
 	result_on_map: function(){
+	/*
 		$("body #mainbody #landing").hide();
 		$("body #mainbody #user_input").hide();
 		$("#mainbody #match_result").show();
@@ -172,8 +173,8 @@ APP.Router = Backbone.Router.extend({
 		var user_ingredients = [];
 		var user_possible_recipes = [];
 		var matched_result = [];
-		for (var i=0; i<APP.userIngredients.models.length; i++){
-			user_input.push(APP.userIngredients.models[i].get('name'));
+		for (var h=0; h<APP.userIngredients.models.length; h++){
+			user_input.push(APP.userIngredients.models[h].get('name'));
 		}
 		for (var i=0; i < user_input.length; i++){
 			for (var k=0; k<APP.DBIngredients.models.length; k++){
@@ -186,7 +187,7 @@ APP.Router = Backbone.Router.extend({
 		}
 
 		_.forEach(user_possible_recipes, function(r){
-			if ( (_.difference(APP.DBRecipes.models[r-1].get('ingredient_used'), user_ingredients)).length == 0 ){
+			if ( (_.difference(APP.DBRecipes.models[r-1].get('ingredient_used'), user_ingredients)).length === 0 ){
 			//console.log("bingo");
 				matched_result.push(r-1);
 			//console.log(DB_Recipes[r-1]['recipeName']);
@@ -214,14 +215,12 @@ APP.Router = Backbone.Router.extend({
 		};
 		for (var i=0; i<matched_result.length; i++){
 			APP.userRecipes.add(APP.DBRecipes.models[matched_result[i]]);
-			//console.log("gggg");
 			//console.log(APP.DBRecipes.models[matched_result[i]].get('recipeName'));
 			console.log(APP.DBRecipes.models[matched_result[i]].get('attributes'));
-			if (APP.DBRecipes.models[matched_result[i]].get('attributes') != undefined){
-				var attr_cuisines = APP.DBRecipes.models[matched_result[i]].get('attributes')['cuisine'];
+			if (APP.DBRecipes.models[matched_result[i]].get('attributes') !== undefined){
+				var attr_cuisines = APP.DBRecipes.models[matched_result[i]].get('attributes').cuisine;
 				//console.log(attr_cuisines.length);
 				for (var j=0; j<attr_cuisines.length; j++){
-					//console.log(j);
 					//console.log(APP.cuisine_geo[cuisine[j]]);
 					//console.log(APP.cuisine_geo[attr_cuisines[j]].lon);
 					if (attr_cuisines[j] in APP.cuisine_geo){
@@ -229,13 +228,13 @@ APP.Router = Backbone.Router.extend({
 						APP.userCuisines[attr_cuisines[j]].lon = APP.cuisine_geo[attr_cuisines[j]].lon;
 						APP.userCuisines[attr_cuisines[j]].lat = APP.cuisine_geo[attr_cuisines[j]].lat;
 						APP.userCuisines[attr_cuisines[j]].num += 1;
-						/*APP.userCuisines[attr_cuisines[j]].images_list.push({
-							cuisine_name: attr_cuisines[j],
-							img_src: APP.DBRecipes.models[matched_result[i]].get('smallImageUrls')[0],
-							cx: cuisine_img_pos[attr_cuisines[j]].cx,
-							cy: cuisine_img_pos[attr_cuisines[j]].cy
+						//APP.userCuisines[attr_cuisines[j]].images_list.push({
+						//	cuisine_name: attr_cuisines[j],
+						//	img_src: APP.DBRecipes.models[matched_result[i]].get('smallImageUrls')[0],
+						//	cx: cuisine_img_pos[attr_cuisines[j]].cx,
+						//	cy: cuisine_img_pos[attr_cuisines[j]].cy
 
-						});*/
+						//});
 						APP.cuisineImgs.push({
 							cuisine_name: attr_cuisines[j],
 							img_src: APP.DBRecipes.models[matched_result[i]].get('smallImageUrls')[0],
@@ -247,34 +246,34 @@ APP.Router = Backbone.Router.extend({
 						cuisine_img_pos[attr_cuisines[j]].cx = 45 + Math.floor((APP.userCuisines[attr_cuisines[j]].num / 7)) * 90;
 						cuisine_img_pos[attr_cuisines[j]].cy = (APP.userCuisines[attr_cuisines[j]].num % 7) * 60;
 					}else{
-						APP.userCuisines['unknown'].num += 1;
+						APP.userCuisines.unknown.num += 1;
 						APP.cuisineImgs.push({
 							cuisine_name: 'unknown',
 							img_src: APP.DBRecipes.models[matched_result[i]].get('smallImageUrls')[0],
 							link: "http://www.yummly.com/recipe/"+APP.DBRecipes.models[matched_result[i]].get('yum_id'),
-							cx: cuisine_img_pos['unknown'].cx,
-							cy: cuisine_img_pos['unknown'].cy
+							cx: cuisine_img_pos.unknown.cx,
+							cy: cuisine_img_pos.unknown.cy
 
 						});
-						cuisine_img_pos['unknown'].cx = 45 + Math.floor((APP.userCuisines["unknown"].num / 7)) * 90;
-						cuisine_img_pos['unknown'].cy = (APP.userCuisines['unknown'].num % 7) * 60;
+						cuisine_img_pos.unknown.cx = 45 + Math.floor((APP.userCuisines.unknown.num / 7)) * 90;
+						cuisine_img_pos.unknown.cy = (APP.userCuisines.unknown.num % 7) * 60;
 					}
 
 				}
 
 
 			}else{
-				APP.userCuisines['unknown'].num += 1;
+				APP.userCuisines.unknown.num += 1;
 				APP.cuisineImgs.push({
 							cuisine_name: 'unknown',
 							img_src: APP.DBRecipes.models[matched_result[i]].get('smallImageUrls')[0],
 							link: "http://www.yummly.com/recipe/"+APP.DBRecipes.models[matched_result[i]].get('yum_id'),
-							cx: cuisine_img_pos['unknown'].cx,
-							cy: cuisine_img_pos['unknown'].cy
+							cx: cuisine_img_pos.unknown.cx,
+							cy: cuisine_img_pos.unknown.cy
 
 						});
-						cuisine_img_pos['unknown'].cx = 45 + Math.floor((APP.userCuisines["unknown"].num / 7)) * 90;
-						cuisine_img_pos['unknown'].cy = (APP.userCuisines['unknown'].num % 7) * 60;
+						cuisine_img_pos.unknown.cx = 45 + Math.floor((APP.userCuisines.unknown.num / 7)) * 90;
+						cuisine_img_pos.unknown.cy = (APP.userCuisines.unknown.num % 7) * 60;
 			}
 		}
 		//console.log("hhhh");
@@ -286,7 +285,7 @@ APP.Router = Backbone.Router.extend({
 		APP.userCuisinesView.render();
 
 		$('#mainbody #match_result #user_recipes').append(APP.userCuisinesView.$el);
-
+	*/
 	}
 
 });
@@ -296,7 +295,7 @@ var showMatchResult = function(recipes){
 	//console.dir(recipes);
 	//console.dir(recipes.models);
 
-	if (recipes.models[0].attributes.yum_id != undefined){
+	if (recipes.models[0].attributes.yum_id !== undefined){
 		//console.log(recipes.models[0].attributes.ingredients);
 		APP.userRecipes = new APP.Recipes();
 		for (var i=0; i<recipes.models.length; i++){
@@ -316,9 +315,9 @@ var showMatchResult = function(recipes){
 		APP.userRecipesView.render();
 		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
 	}else{
-		console.log("No matched recipes!!")
+		console.log("No matched recipes!!");
 	}
-}
+};
 
 APP.router = new APP.Router();
 Backbone.history.start({"root": "/"});

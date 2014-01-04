@@ -1,65 +1,65 @@
 APP.User_InputView = Backbone.View.extend({
-	tagName: "div",
-	el: "#mainbody",
-//	section: "#landing",
+  tagName: "div",
+  el: "#mainbody",
+//  section: "#landing",
 
-	events: {
-		"keypress #new-ingredient": 'createOnEnter',
-		"click #match-button": "match"
+  events: {
+    "keypress #new-ingredient": 'createOnEnter',
+    "click #match-button": "match"
 
-	},
+  },
 
-	initialize: function(){
-		this.$input = this.$('#new-ingredient');
-		this.$main = this.$('#main');
-		//this.$footer = this.$('#footer');
-		this.$landing_page = this.$('#landing');
+  initialize: function(){
+    this.$input = this.$('#new-ingredient');
+    this.$main = this.$('#main');
+    //this.$footer = this.$('#footer');
+    this.$landing_page = this.$('#landing');
 
-		this.listenTo(APP.userIngredients, 'add', this.addOneIngredient);
-		this.listenTo(APP.userIngredients, 'reset', this.addAll);
-		this.listenTo(APP.userIngredients, 'all', this.render);
+    this.listenTo(APP.userIngredients, 'add', this.addOneIngredient);
+    this.listenTo(APP.userIngredients, 'reset', this.addAll);
+    this.listenTo(APP.userIngredients, 'all', this.render);
 
-	},
+  },
 
-	match: function(){
-		console.log("match start");
+  match: function(){
+    console.log("match start");
 
-	},
+  },
 
-	addOneIngredient: function (ingredient) {
+  addOneIngredient: function (ingredient) {
         var view = new APP.IngredientView({ model: ingredient });
         $('#ingredient-list').append(view.render().el);
     },
 
   newAttributes: function () {
     return {
-    	name: this.$input.val().trim(),
-    		//order: app.todos.nextOrder(),
-    		//completed: false
+      name: this.$input.val().trim(),
+        //order: app.todos.nextOrder(),
+        //completed: false
     };
   },
 
   createOnEnter: function (e) {
-    	//console.log("createOnEnter hit");
+      //console.log("createOnEnter hit");
     if (e.which !== ENTER_KEY || !this.$input.val().trim()) {
-    	return;
+      return;
     }
 
     APP.userIngredients.create(this.newAttributes());
     this.$input.val('');
   },
 
-	render: function(){
-		//this.$landing_page.hide();
-		this.$main.show();
-		//this.$footer.show();
-		this.addAutoComplete();
-		//this.$el.html(this.template());
-		return this;
-	},
+  render: function(){
+    //this.$landing_page.hide();
+    this.$main.show();
+    //this.$footer.show();
+    this.addAutoComplete();
+    //this.$el.html(this.template());
+    return this;
+  },
 
-	addAutoComplete: function(){
-    	var availableTags = [
+  addAutoComplete: function(){
+      var availableTags = [
           "tomato",
           "onion",
           "chicken breast",
