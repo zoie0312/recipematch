@@ -150,7 +150,7 @@ APP.Router = Backbone.Router.extend({
 	},
 
 	match_recipes: function(){
-		console.log("match_recipes hit");
+		//console.log("router: match_recipes hit");
 		$("body #mainbody #landing").hide();
 		$("body #mainbody #user_input").hide();
 		$("#mainbody #match_result").show();
@@ -163,6 +163,7 @@ APP.Router = Backbone.Router.extend({
 
 	},
 
+	// used with D3. Show recipes grouped by cuisines on a world map
 	result_on_map: function(){
 	/*
 		$("body #mainbody #landing").hide();
@@ -291,7 +292,7 @@ APP.Router = Backbone.Router.extend({
 });
 
 var showMatchResult = function(recipes){
-	console.log("fetching matchRecipes successfully");
+	console.log("fetched matchRecipes successfully");
 	//console.dir(recipes);
 	//console.dir(recipes.models);
 

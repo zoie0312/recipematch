@@ -11,7 +11,7 @@ APP.RecipeView = Backbone.View.extend({
 
 	render: function(){
 		//this.$el.html('<h3>' + this.model.get('name') + '</h3>');
-		console.log("View " + this.model.get('recipeName'));
+		//console.log("View " + this.model.get('recipeName'));
 		var attributes = this.model.toJSON();
 		this.$el.html(this.rcp_template(attributes));
 		return this;

@@ -22,7 +22,7 @@ APP.User_InputView = Backbone.View.extend({
   },
 
   match: function(){
-    console.log("match start");
+    //console.log("userinput_view: recipe matching starts");
 
   },
 

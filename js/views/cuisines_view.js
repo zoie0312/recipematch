@@ -1,3 +1,4 @@
+// to show recipes grouped by different cusisnes
 APP.CuisinesView = Backbone.View.extend({
     //tagName: "div",
     className: "cuisines",

@@ -3,7 +3,7 @@ APP.RecipesView = Backbone.View.extend({
 	className: "recipes",
 	//template: _.template('<h3><%= name %></h3>'),
 	render: function(){
-		console.log("RecipesView called");
+		//console.log("RecipesView called");
 		this.collection.forEach(function(model){
 			APP.recipeView = new APP.RecipeView({
 				model: model

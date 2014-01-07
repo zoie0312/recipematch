@@ -10,7 +10,7 @@ require('../bower_components/bootstrap/dist/js/bootstrap.min.js')*/
 var APP = window.APP = {};
 var ENTER_KEY = window.ENTER_KEY = 13;
 
-APP.cuisine_geo = {
+/*APP.cuisine_geo = {
 
 		"american": {
 			city: "Kansas City",
@@ -38,7 +38,7 @@ APP.cuisine_geo = {
 			lat: 30.61
 		}
 
-};
+};*/
 
 //var call_foo = require('./a_foo.js');
 //call_foo.speak();
