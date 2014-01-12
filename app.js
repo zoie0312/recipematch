@@ -54,7 +54,7 @@ var user_input_ingredients = {};
 var user_input_ingredient_ids = {};
 var user_possible_recipe_ids = {};
 
-fs.readFile('temp/db_ingredients0112.json', function(err, data){
+fs.readFile('db/db_ingredients0112.json', function(err, data){
     if (err){
         return console.log(err);
     }
@@ -63,7 +63,7 @@ fs.readFile('temp/db_ingredients0112.json', function(err, data){
 
 });
 
-fs.readFile('temp/db_recipes0112.json', function(err, data){
+fs.readFile('db/db_recipes0112.json', function(err, data){
     if (err){
         return console.log(err);
     }
