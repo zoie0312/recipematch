@@ -158,7 +158,8 @@ APP.Router = Backbone.Router.extend({
 		APP.matchRecipes = new APP.Recipes();
 		APP.matchRecipes.url = "/matching";
 		APP.matchRecipes.fetch({
-			success: showMatchResult
+			//success: showDBMatchResult
+			success: showMemMatchResult
 		});
 
 	},
@@ -291,7 +292,7 @@ APP.Router = Backbone.Router.extend({
 
 });
 
-var showMatchResult = function(recipes){
+var showDBMatchResult = function(recipes){
 	console.log("fetched matchRecipes successfully");
 	//console.dir(recipes);
 	//console.dir(recipes.models);
@@ -306,6 +307,35 @@ var showMatchResult = function(recipes){
 				ingredients: JSON.parse(recipes.models[i].attributes.ingredients),
 				yum_id: recipes.models[i].attributes.yum_id,
 				smallImageUrls: new Array(recipes.models[i].attributes.smallImageUrls)
+
+			});
+		}
+		//APP.userRecipes.add(recipes.models[0]);
+		APP.userRecipesView = new APP.RecipesView({
+			collection: APP.userRecipes
+		});
+		APP.userRecipesView.render();
+		$('#mainbody #match_result #user_recipes').append(APP.userRecipesView.$el);
+	}else{
+		console.log("No matched recipes!!");
+	}
+};
+
+var showMemMatchResult = function(recipes){
+	console.log("fetched matchRecipes successfully");
+	//console.dir(recipes);
+	//console.dir(recipes.models);
+
+	if (recipes.models[0].attributes.yum_id !== undefined){
+		//console.log(recipes.models[0].attributes.ingredients);
+		APP.userRecipes = new APP.Recipes();
+		for (var i=0; i<recipes.models.length; i++){
+			APP.userRecipes.add({
+				id: recipes.models[i].attributes.id,
+				recipeName: recipes.models[i].attributes.recipeName,
+				ingredients: recipes.models[i].attributes.ingredients,
+				yum_id: recipes.models[i].attributes.yum_id,
+				smallImageUrls: recipes.models[i].attributes.smallImageUrls
 
 			});
 		}

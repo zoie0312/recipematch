@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 var _ = require("underscore");
-//var fs = require('fs');
+var fs = require('fs');
 var pg = require('pg');
 
 var app = express()
@@ -48,25 +48,27 @@ var sample_ingredients = [
 ];
 //var ing_id = _.max(ingredients, function(ingredient) {return ingredient.id;}).id;
 
-//var DB_Ingredients = [];
-//var DB_Recipes = [];
+var DB_Ingredients = [];
+var DB_Recipes = [];
 var user_input_ingredients = {};
+var user_input_ingredient_ids = {};
+var user_possible_recipe_ids = {};
 
-/*fs.readFile('db/db_ingredients_json1120.json', function(err, data){
+fs.readFile('temp/db_ingredients0112.json', function(err, data){
     if (err){
         return console.log(err);
     }
 
     DB_Ingredients = JSON.parse(data);
 
-});*/
+});
 
-/*fs.readFile('db/db_recipes1120.json', function(err, data){
+fs.readFile('temp/db_recipes0112.json', function(err, data){
     if (err){
         return console.log(err);
     }
     DB_Recipes = JSON.parse(data);
-});*/
+});
 
 app.get("/", function(req, res){
     console.log("root hit");
@@ -103,6 +105,7 @@ app.get("/db_ingredients", function(req, res){
         return v.toString(16);
     });
     user_input_ingredients[new_connid] = Array();
+    user_input_ingredient_ids[new_connid] = Array();
     res.cookie('connID', new_connid);
 
     //res.json(DB_Ingredients);
@@ -112,15 +115,21 @@ app.get("/db_ingredients", function(req, res){
 app.post("/ingredients", function(req, res){
     var conn_id = req.cookies.connID;
     user_input_ingredients[conn_id].push(req.body.name);
+    if (DB_Ingredients.hasOwnProperty(req.body.name)){
+        user_input_ingredient_ids[conn_id].push(DB_Ingredients[req.body.name].id);
+        user_possible_recipe_ids[conn_id] = (user_possible_recipe_ids[conn_id] || []).concat(
+            DB_Ingredients[req.body.name].used_in);
+        user_possible_recipe_ids[conn_id] = _.uniq(user_possible_recipe_ids[conn_id]);
 
-    //console.log("connectiion id= " + conn_id);
+    }
+
     //console.log("user input ingredients= " + user_input_ingredients[conn_id]);
-    //console.dir(req.cookies);
-
+    //console.log("user ingredient ids " + user_input_ingredient_ids[conn_id]);
     res.end();
 });
 
-app.get("/matching", function(req, res, next){
+// match user input ingredients with recipes in database
+/*app.get("/matching", function(req, res, next){
     var conn_id = req.cookies.connID;
     var user_input = user_input_ingredients[conn_id];
 
@@ -140,10 +149,12 @@ app.get("/matching", function(req, res, next){
           return true;
         };
         /*jshint multistr: true */
+/*
         client.query('SELECT DISTINCT id, used_db_ingredients FROM recipes_recipe WHERE id IN \
             (SELECT DISTINCT recipe_id FROM recipes_usedin WHERE ingredient_id IN \
                 (SELECT id FROM recipes_ingredient WHERE name IN ('+placeholders+')) ORDER BY recipe_id)'
             /*jshint laxcomma: true */
+/*
             ,user_input , function(err, result) {
             if(handleError(err)) return;
             var test_recipe_id = result.rows[1].id;
@@ -181,6 +192,30 @@ app.get("/matching", function(req, res, next){
             }
         });
     });
+});*/
+
+// match user input ingredients; use in-memory storage on server as db
+app.get("/matching", function(req, res, next){
+    var conn_id = req.cookies.connID;
+    var user_input = user_input_ingredient_ids[conn_id];
+    var user_possible_recipes = user_possible_recipe_ids[conn_id];
+    var matched_recipe_ids = [];
+    var matched_recipes = [];
+
+    console.log("matching recipes..");
+    console.log("user input ingredients= " + user_input);
+    _.forEach(user_possible_recipes, function(r){
+        if ( (_.difference(DB_Recipes[r-1].ingredient_used, user_input)).length === 0 ){
+        //console.log("bingo");
+            matched_recipe_ids.push(r);
+            matched_recipes.push(DB_Recipes[r-1]);
+        //console.log(DB_Recipes[r-1]['recipeName']);
+        }
+    });
+    console.log("matched recipe ids " + matched_recipe_ids);
+    res.json(matched_recipes);
+    res.end();
+
 });
 
 var port = process.env.PORT || 8000;
